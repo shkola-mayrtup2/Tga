@@ -333,3 +333,97 @@
         </div>
       </div>
       <!-- Пост 2 (По умолчанию) -->
+      05 октября 2026 г.
+День учителя в МБОУ СШ №2
+Поздравляем наш замечательный педагогический коллектив с профессиональным праздником. Спасибо за ваш благородный труд и терпение!
+
+
+
+Классы и предметы
+У нас учатся с 1 по 11 класс. Основные направления:
+
+Естественно-научное (биология, химия, физика)
+Гуманитарное (история, обществознание, литература)
+Математическое (алгебра, геометрия, информатика)
+Кружки: БАС, математический, литературный, шахматы, футбол, волейбол, баскетбол, легкая атлетика
+
+Дополнительно: робототехника, программирование, медиастудия.
+Ближайшие мероприятия
+Все мероприятия публикуются в мессенджере MAX (Сферум):
+🔗 Перейти к мероприятиям
+Контакты
+
+
+
+Адрес: Чеченская Республика, Курчалоевский район, с. Майртуп, ул. З.А. Кадырова, 17
+Телефон Администратора: +7 (989) 173-43-08
+Email Администратора: schoolMayrtup2@gmail.com
+Режим работы: пн–пт, 8:00–18:00
+📱 Мы ВКонтакте
+✈️ Наш Telegram
+
+Обратная связь
+Есть вопросы или предложения? Напишите нам, и администрация школы ответит вам в ближайшее время.
+Спасибо! Ваше сообщение успешно отправлено администратору.
+
+Ваше имя *
+Электронная почта / Телефон *
+Текст сообщения *
+Отправить сообщение
+
+Панель администратора (Создание поста)
+
+Заголовок поста *
+Дата публикации *
+Текст публикации *
+Опубликовать пост
+Закрыть
+
+
+
+© 2026 МБОУ «Средняя школа №2». Все права защищены.
+// Скрипт обратной связи
+document.getElementById('schoolForm').addEventListener('submit', function(e) {
+e.preventDefault();
+this.style.display = 'none';
+document.getElementById('successAlert').style.display = 'block';
+});
+// Логика секретной админ-панели
+const secretTrigger = document.getElementById('secretTrigger');
+const adminSection = document.getElementById('adminSection');
+const closeAdminBtn = document.getElementById('closeAdminBtn');
+const adminForm = document.getElementById('adminForm');
+const postsContainer = document.getElementById('postsContainer');
+// Открытие админки по клику на знак копирайта
+secretTrigger.addEventListener('click', function() {
+const password = prompt('Введите пароль администратора для доступа к панели:');
+if (password === 'admin123') {
+adminSection.style.display = 'block';
+adminSection.scrollIntoView({ behavior: 'smooth' });
+} else if (password !== null) {
+alert('Неверный пароль!');
+}
+});
+// Закрытие панели администратора
+closeAdminBtn.addEventListener('click', function() {
+adminSection.style.display = 'none';
+});
+// Добавление нового поста на страницу через форму
+adminForm.addEventListener('submit', function(e) {
+e.preventDefault();
+const title = document.getElementById('postTitle').value;
+const date = document.getElementById('postDate').value;
+const text = document.getElementById('postText').value;
+// Создаем структуру новой карточки поста
+const postCard = document.createElement('div');
+postCard.className = 'post-card';
+postCard.innerHTML = <div> <div class="post-date">${date}</div> <h3>${title}</h3> <p>${text}</p> </div>;
+// Добавляем пост в начало ленты новостей
+postsContainer.insertBefore(postCard, postsContainer.firstChild);
+// Сбрасываем поля формы и скрываем панель
+adminForm.reset();
+adminSection.style.display = 'none';
+// Скроллим к разделу с постами, чтобы увидеть результат
+document.getElementById('posts').scrollIntoView({ behavior: 'smooth' });
+});
+

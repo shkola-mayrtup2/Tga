@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>МБОУ "Майртупская СШ №2 им АА Кадырова"</title>
+  <title>МБОУ "Майртупская СШ №2 им. А. А. Кадырова"</title>
   <style>
     :root {
-      --primary: #2c52ba; /* школьный синий */
-      --accent: #fbbf24; /* жёлтый акцент */
+      --primary: #2c52ba;
+      --accent: #fbbf24;
       --dark: #1f2937;
       --light: #f9fafb;
       --text: #334155;
       --vk: #0077ff;
       --tg: #229ed9;
+      --border: #cbd5e1;
+      --success: #15803d;
+      --success-bg: #dcfce7;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
     body {
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       background: var(--light);
@@ -34,14 +35,17 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 15px;
+      position: sticky;
+      top: 0;
     }
     .school-logo {
       display: flex;
       align-items: center;
       gap: 12px;
       font-weight: 700;
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       color: var(--primary);
+      line-height: 1.3;
     }
     nav ul {
       display: flex;
@@ -52,9 +56,12 @@
       text-decoration: none;
       color: var(--dark);
       font-weight: 500;
-      transition: color 0.2s;
+      transition: color 0.2s, text-shadow 0.2s;
     }
-    nav a:hover { color: var(--primary); }
+    nav a:hover {
+      color: var(--primary);
+      text-shadow: 0 0 4px rgba(44, 82, 186, 0.15);
+    }
     main { max-width: 960px; margin: 2rem auto; padding: 0 1rem; }
     .hero {
       background: white;
@@ -65,6 +72,7 @@
       text-align: center;
     }
     .hero h1 { color: var(--primary); margin-bottom: 0.75rem; }
+    .hero p { max-width: 600px; margin: 0 auto 1.25rem; color: #475569; }
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -77,6 +85,11 @@
       border-radius: 12px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.04);
       border-top: 4px solid var(--accent);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
     }
     .feature-card h3 {
       margin-bottom: 0.5rem;
@@ -89,77 +102,30 @@
       margin-bottom: 2.5rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
-    h2 { color: var(--primary); margin-bottom: 1.25rem; border-bottom: 2px solid #e5e7eb; padding-bottom: 0.5rem; }
-    .about-text p { margin-bottom: 1rem; text-indent: 1rem; text-align: justify; }
-    .about-text p:last-child { margin-bottom: 0; }
+    h2 {
+      color: var(--primary);
+      margin-bottom: 1.25rem;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 0.5rem;
+    }
     ul { margin-top: 0.75rem; list-style: disc; padding-left: 1.25rem; }
     li { margin-bottom: 0.4rem; }
-
-    /* Лента Постов / Новостей */
-    .posts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1.5rem;
-    }
-    .post-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .post-date {
-      font-size: 0.8rem;
-      color: #94a3b8;
-      margin-bottom: 0.5rem;
-    }
-    .post-card h3 {
-      color: var(--dark);
-      font-size: 1.15rem;
-      margin-bottom: 0.75rem;
-    }
-    .post-card p {
-      font-size: 0.95rem;
-      color: var(--text);
-      flex-grow: 1;
-    }
-
-    /* Кнопки */
     .cta {
       display: inline-block;
-      margin-top: 1rem;
-      padding: 0.8rem 1.4rem;
+      padding: 0.85rem 1.4rem;
       background: var(--primary);
       color: white;
       text-decoration: none;
       border-radius: 8px;
       font-weight: 500;
-      border: none;
       cursor: pointer;
       font-size: 1rem;
       transition: background 0.2s, transform 0.1s;
+      border: none;
     }
     .cta:hover { background: #1e3a8a; }
     .cta:active { transform: scale(0.98); }
-
-    .btn-inline {
-      display: inline-block;
-      margin-top: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: #e2e8f0;
-      color: var(--dark);
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: background 0.2s;
-    }
-    .btn-inline:hover { background: #cbd5e1; }
-
-    /* Сетка для контактов */
+    .cta:disabled { opacity: 0.6; cursor: not-allowed; background: #a0aec0; }
     .contacts-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -168,13 +134,10 @@
     .contacts-list p { margin-bottom: 0.8rem; }
     .contacts-list a { color: var(--primary); text-decoration: none; }
     .contacts-list a:hover { text-decoration: underline; }
-
-    /* Соцсети */
     .social-buttons {
       display: flex;
       gap: 10px;
       margin-top: 1.5rem;
-      flex-wrap: wrap;
     }
     .btn-social {
       display: inline-flex;
@@ -186,23 +149,26 @@
       text-decoration: none;
       font-weight: 500;
       font-size: 0.9rem;
-      transition: opacity 0.2s;
+      transition: opacity 0.2s, transform 0.1s;
     }
-    .btn-social:hover { opacity: 0.9; }
+    .btn-social:hover { opacity: 0.9; transform: translateY(-1px); }
     .btn-vk { background: var(--vk); }
     .btn-tg { background: var(--tg); }
-
-    /* Карта */
     .map-container {
       margin-top: 1.5rem;
       border-radius: 12px;
       overflow: hidden;
-      border: 1px solid #e5e7eb;
+      border: 1px solid var(--border);
       height: 250px;
+      width: 100%;
+      position: relative;
     }
-
-    /* Формы */
-    .contact-form, .admin-form {
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .contact-form {
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -220,7 +186,7 @@
     }
     .form-group input, .form-group textarea {
       padding: 0.75rem;
-      border: 1px solid #cbd5e1;
+      border: 1px solid var(--border);
       border-radius: 8px;
       font-family: inherit;
       font-size: 1rem;
@@ -233,197 +199,129 @@
     }
     .success-message {
       display: none;
-      background: #dcfce7;
-      color: #15803d;
+      background: var(--success-bg);
+      color: var(--success);
       padding: 1rem;
       border-radius: 8px;
       margin-top: 1rem;
       font-weight: 500;
       text-align: center;
     }
-
-    /* Скрытая Админ-панель */
-    #adminSection {
-      display: none; /* Полностью скрыта изначально */
-      background: #fef08a; /* Светло-желтый оттенок для отличия панели */
-      border: 2px dashed #ca8a04;
-    }
-
-    footer {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: #64748b;
-      font-size: 0.9rem;
-    }
-    /* Секретный триггер */
-    .secret-trigger {
-      cursor: pointer;
-      user-select: none;
-    }
-
     @media (max-width: 768px) {
       header { flex-direction: column; text-align: center; padding: 1rem; }
       nav ul { flex-direction: column; gap: 12px; align-items: center; }
       .hero { padding: 2rem 1rem; }
       section { padding: 1.5rem; }
       .contacts-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-      .map-container { height: 300px; }
     }
   </style>
 </head>
 <body>
-<header>
-  <div class="school-logo">
-    <span>🏫 МБОУ "Майртупская СШ №2 им АА Кадырова"</span>
-  </div>
-  <nav>
-    <ul>
-      <li><a href="#home">Главная</a></li>
-      <li><a href="#about">О школе</a></li>
-      <li><a href="#posts">Посты</a></li>
-      <li><a href="#grades">Классы</a></li>
-      <li><a href="#events">Мероприятия</a></li>
-      <li><a href="#contacts">Контакты</a></li>
-    </ul>
-  </nav>
-</header>
-
-<main>
-  <section id="home" class="hero">
-    <h1>Добро пожаловать в нашу школу!</h1>
-    <p>Мы создаём среду, где каждый ученик раскрывает свой потенциал и уверенно смотрит в будущее.</p>
-    <a href="#feedback" class="cta">Написать нам</a>
-  </section>
-
-  <div class="features">
-    <div class="feature-card">
-      <h3>Сильные учителя</h3>
-      <p>Опытные педагоги, которые умеют объяснять сложное простыми словами.</p>
+  <header>
+    <div class="school-logo">
+      <span>🏫 МБОУ "Майртупская СШ №2 им. А. А. Кадырова"</span>
     </div>
-    <div class="feature-card">
-      <h3>Современная техника</h3>
-      <p>Компьютерный класс, интерактивные доски, лаборатории для экспериментов.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Внеурочная жизнь</h3>
-      <p>Кружки, секции, олимпиады и творческие проекты для всех желающих.</p>
-    </div>
-  </div>
+    <nav>
+      <ul>
+        <li><a href="#home">Главная</a></li>
+        <li><a href="#about">О школе</a></li>
+        <li><a href="#grades">Классы и предметы</a></li>
+        <li><a href="#events">Мероприятия</a></li>
+        <li><a href="#posts">Новости и посты</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+        <!-- Ссылка на админку -->
+        <li><a href="admin.html" style="color:var(--accent)">🔐 Админ</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <section id="about">
-    <h2>О школе</h2>
-    <div class="about-text">
-      <p><strong>МБОУ «Майртупская школа № 2 им. А. А. Кадырова» — Храм науки и Дом счастливого детства.</strong></p>
-      <p>МБОУ «Майртупская школа № 2 имени А. А. Кадырова» — это не просто образовательное учреждение, это надежный фундамент для будущего сотен детей и центр культурной жизни села. Наша школа гордится своей богатой историей и крепкими традициями, которые бережно передаются из поколения в поколение.</p>
-      <p>За годы работы школа стала кузницей настоящих профессионалов. Мы с гордостью можем сказать, что наши выпускники востребованы в самых разных сферах: среди них врачи и учителя, инженеры и деятели культуры, защитники Отечества и успешные руководители. Их достижения — это главная награда для педагогического коллектива и доказательство высокого качества образования, которое дает наша школа.</p>
-      <p>Но, прежде всего, наша школа — это Дом счастливого детства. Здесь каждый ученик окружен заботой, вниманием и теплом. Мы создаем условия не только для получения глубоких знаний, но и для гармоничного развития личности, раскрытия талантов и воспитания истинных патриотов своей Родины.</p>
-    </div>
-  </section>
+  <main>
+    <section id="home" class="hero">
+      <h1>Добро пожаловать в нашу школу!</h1>
+      <p>Мы создаём среду, где каждый ученик раскрывает свой потенциал и уверенно смотрит в будущее.</p>
+      <a href="#feedback" class="cta">Написать нам</a>
+    </section>
 
-  <!-- Новый раздел: Посты -->
-  <section id="posts">
-    <h2>Посты и новости школы</h2>
-    <div class="posts-grid" id="postsContainer">
-      <!-- Пост 1 (По умолчанию) -->
-      <div class="post-card">
-        <div>
-          <div class="post-date">12 октября 2026 г.</div>
-          <h3>Открытие нового учебного сезона</h3>
-          <p>Наша школа рада приветствовать учеников в обновленных классах! В этом году нас ждут новые победы, увлекательные проекты и олимпиады.</p>
+    <div class="features">
+      <div class="feature-card">
+        <h3>Сильные учителя</h3>
+        <p>Опытные педагоги, которые умеют объяснять сложное простыми словами.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Современная техника</h3>
+        <p>Компьютерный класс, интерактивные доски, лаборатории для экспериментов.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Внеурочная жизнь</h3>
+        <p>Кружки, секции, олимпиады и творческие проекты для всех желающих.</p>
+      </div>
+    </div>
+
+    <section id="about">
+      <h2>О школе</h2>
+      <p>МБОУ «Майртупская школа № 2 им. А. А. Кадырова» — Храм науки и Дом счастливого детства.</p>
+      <p>Это не просто образовательное учреждение, а надёжный фундамент для будущего сотен детей и центр культурной жизни села. Наша школа гордится своей богатой историей и крепкими традициями, которые бережно передаются из поколения в поколение.</p>
+      <p>За годы работы школа стала кузницей настоящих профессионалов. Наши выпускники востребованы в самых разных сферах: среди них врачи и учителя, инженеры и деятели культуры, защитники Отечества и успешные руководители. Их достижения — главная награда для педагогического коллектива.</p>
+      <p>Но, прежде всего, наша школа — это Дом счастливого детства. Здесь каждый ученик окружён заботой, вниманием и теплом. Мы создаём условия не только для получения глубоких знаний, но и для гармоничного развития личности, раскрытия талантов и воспитания истинных патриотов своей Родины.</p>
+    </section>
+
+    <section id="grades">
+      <h2>Классы и предметы</h2>
+      <p>У нас учатся с 1 по 11 класс. Основные направления:</p>
+      <ul>
+        <li>Естественно-научное (биология, химия, физика)</li>
+        <li>Гуманитарное (история, обществознание, литература)</li>
+        <li>Математическое (алгебра, геометрия, информатика)</li>
+        <li>Кружки: БАС, математический, литературный, шахматы, футбол, волейбол, баскетбол, лёгкая атлетика</li>
+      </ul>
+      <p style="margin-top: 1rem;">Дополнительно: робототехника, программирование, медиастудия.</p>
+    </section>
+
+    <section id="events">
+      <h2>Ближайшие мероприятия</h2>
+      <ul>
+        <li>Все мероприятия публикуются в мессенджере MAX.</li>
+        <li><a href="https://max.ru/sferum_bot?startapp=eyJpbnZpdGVJZCI6ImJmY2FjNjhiLWVjZDItNDE4OS04ODVjLWVmZWQyNTU0ODk4YyJ9">Подробнее</a></li>
+      </ul>
+    </section>
+
+    <!-- Секция постов -->
+    <section id="posts">
+      <h2>Новости и события</h2>
+      <div id="postsGrid" class="features"></div>
+    </section>
+
+    <section id="contacts">
+      <h2>Контакты</h2>
+      <div class="contacts-grid">
+        <div class="contacts-info">
+          <div class="contacts-list">
+            <p><strong>Адрес:</strong> ЧР, Курчалоевский район, с. Майртуп, ул. А. Кадырова, 17</p>
+            <p><strong>Телефон Администратора:</strong> <a href="tel:+79891734308">+7 (989) 173-43-08</a></p>
+            <p><strong>Email Администратора:</strong> <a href="mailto:schoolMayrtup2@gmail.com">schoolMayrtup2@gmail.com</a></p>
+            <p><strong>Режим работы:</strong> пн–пт, 8:00–18:00</p>
+          </div>
+          <div class="social-buttons">
+            <a href="https://vk.com/club222717490" target="_blank" class="btn-social btn-vk">📱 Мы ВКонтакте</a>
+            <a href="https://t.me/club222717490" target="_blank" class="btn-social btn-tg">✈️ Наш Telegram</a>
+          </div>
+        </div>
+        <div class="map-container">
+          <!-- ВСТАВЬ СЮДА ПРАВИЛЬНУЮ ССЫЛКУ НА ЯНДЕКС-КАРТЫ -->
+          <iframe src="https://yandex.ru/maps/embed/org/МБОУ_Майртупская_СШ_№2/ЗАМЕНИ_НА_СВОЮ_ССЫЛКУ" width="100%" height="100%" frameborder="0" allowfullscreen="true"></iframe>
         </div>
       </div>
-      <!-- Пост 2 (По умолчанию) -->
-      05 октября 2026 г.
-День учителя в МБОУ СШ №2
-Поздравляем наш замечательный педагогический коллектив с профессиональным праздником. Спасибо за ваш благородный труд и терпение!
+    </section>
 
-
-
-Классы и предметы
-У нас учатся с 1 по 11 класс. Основные направления:
-
-Естественно-научное (биология, химия, физика)
-Гуманитарное (история, обществознание, литература)
-Математическое (алгебра, геометрия, информатика)
-Кружки: БАС, математический, литературный, шахматы, футбол, волейбол, баскетбол, легкая атлетика
-
-Дополнительно: робототехника, программирование, медиастудия.
-Ближайшие мероприятия
-Все мероприятия публикуются в мессенджере MAX (Сферум):
-🔗 Перейти к мероприятиям
-Контакты
-
-
-
-Адрес: Чеченская Республика, Курчалоевский район, с. Майртуп, ул. З.А. Кадырова, 17
-Телефон Администратора: +7 (989) 173-43-08
-Email Администратора: schoolMayrtup2@gmail.com
-Режим работы: пн–пт, 8:00–18:00
-📱 Мы ВКонтакте
-✈️ Наш Telegram
-
-Обратная связь
-Есть вопросы или предложения? Напишите нам, и администрация школы ответит вам в ближайшее время.
-Спасибо! Ваше сообщение успешно отправлено администратору.
-
-Ваше имя *
-Электронная почта / Телефон *
-Текст сообщения *
-Отправить сообщение
-
-Панель администратора (Создание поста)
-
-Заголовок поста *
-Дата публикации *
-Текст публикации *
-Опубликовать пост
-Закрыть
-
-
-
-© 2026 МБОУ «Средняя школа №2». Все права защищены.
-// Скрипт обратной связи
-document.getElementById('schoolForm').addEventListener('submit', function(e) {
-e.preventDefault();
-this.style.display = 'none';
-document.getElementById('successAlert').style.display = 'block';
-});
-// Логика секретной админ-панели
-const secretTrigger = document.getElementById('secretTrigger');
-const adminSection = document.getElementById('adminSection');
-const closeAdminBtn = document.getElementById('closeAdminBtn');
-const adminForm = document.getElementById('adminForm');
-const postsContainer = document.getElementById('postsContainer');
-// Открытие админки по клику на знак копирайта
-secretTrigger.addEventListener('click', function() {
-const password = prompt('Введите пароль администратора для доступа к панели:');
-if (password === 'admin123') {
-adminSection.style.display = 'block';
-adminSection.scrollIntoView({ behavior: 'smooth' });
-} else if (password !== null) {
-alert('Неверный пароль!');
-}
-});
-// Закрытие панели администратора
-closeAdminBtn.addEventListener('click', function() {
-adminSection.style.display = 'none';
-});
-// Добавление нового поста на страницу через форму
-adminForm.addEventListener('submit', function(e) {
-e.preventDefault();
-const title = document.getElementById('postTitle').value;
-const date = document.getElementById('postDate').value;
-const text = document.getElementById('postText').value;
-// Создаем структуру новой карточки поста
-const postCard = document.createElement('div');
-postCard.className = 'post-card';
-postCard.innerHTML = <div> <div class="post-date">${date}</div> <h3>${title}</h3> <p>${text}</p> </div>;
-// Добавляем пост в начало ленты новостей
-postsContainer.insertBefore(postCard, postsContainer.firstChild);
-// Сбрасываем поля формы и скрываем панель
-adminForm.reset();
-adminSection.style.display = 'none';
-// Скроллим к разделу с постами, чтобы увидеть результат
-document.getElementById('posts').scrollIntoView({ behavior: 'smooth' });
-});
-
+    <section id="feedback">
+      <h2>Обратная связь</h2>
+      <p>Есть вопросы или предложения? Напишите нам, и администрация школы ответит вам в ближайшее время.</p>
+      <div id="successAlert" class="success-message">Спасибо! Ваше сообщение успешно отправлено администратору.</div>
+      <form id="schoolForm" class="contact-form">
+        <div class="form-group">
+          <label for="name">Ваше имя *</label>
+          <input type="text" id="name" required placeholder="Иванов Иван">
+        </div>
+        <div class="form-group">
+          <label for="email">Электронная почта / Телефон *</label>
+          <input type="text" id="email" required placeholder="example@mail.ru или +7...">
